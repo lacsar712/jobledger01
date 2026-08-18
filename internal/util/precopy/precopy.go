@@ -8,7 +8,9 @@ func ClonePrefix(src []byte, n int) []byte {
 	if n > len(src) {
 		n = len(src)
 	}
-	return src[:n]
+	out := make([]byte, n)
+	copy(out, src[:n])
+	return out
 }
 
 // CloneAll returns a copy of src that does not share a backing array.
