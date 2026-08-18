@@ -1,6 +1,7 @@
 package precopy
 
-// ClonePrefix returns an independent prefix of src.
+// ClonePrefix returns an independent prefix of src. The returned slice
+// does not share a backing array with src, so mutating it leaves src intact.
 func ClonePrefix(src []byte, n int) []byte {
 	if n < 0 {
 		n = 0
@@ -8,7 +9,9 @@ func ClonePrefix(src []byte, n int) []byte {
 	if n > len(src) {
 		n = len(src)
 	}
-	return src[:n]
+	out := make([]byte, n)
+	copy(out, src[:n])
+	return out
 }
 
 // CloneAll returns a copy of src that does not share a backing array.
